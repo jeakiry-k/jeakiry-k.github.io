@@ -159,78 +159,6 @@
 </div>
 
 
-  
-
-	<!-- async load  -->
-	<script>
-			function async(u, c) {
-				var d = document, t = 'script',
-						o = d.createElement(t),
-						s = d.getElementsByTagName(t)[0];
-				o.src = u;
-				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-				s.parentNode.insertBefore(o, s);
-			}
-	</script>
-	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-	<script>
-			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-					anchors.options = {
-						visible: 'hover',
-						placement: 'left',
-						// icon: '#'
-					};
-					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
-			})
-	</script>
-	<style>
-			/* place left on bigger screen */
-			@media all and (min-width: 800px) {
-					.anchorjs-link{
-							position: absolute;
-							left: -0.75em;
-							font-size: 1.1em;
-							margin-top : -0.1em;
-					}
-			}
-	</style>
-
-
-
-
-<!-- UY BEGIN -->
-	<div id="gitment-container"></div>
-	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-	<script src="/js/web-pinyin.js"></script>
-	<script>
-		function toUnicode(s){ 
-			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
-			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
-			});
-		}
-		var title = 'Hello World'
-		var GitHub_id = 'jeakiry-k'
-		var client_id = 'b93fb3c735f76c1abc82'
-		var client_secret = '0e471dc194f5402aa007e8477be34a6473b4c246'
-		var repo = 'jeakiry-k.me'
-		var gitment = new Gitment({
-		// id: '页面 ID', // 可选。默认为 location.href
-		// id:"11" ,
-		id: title,
-		title: title,
-		owner: GitHub_id,//'你的 GitHub ID',
-		repo: repo,//'存储评论的 repo',
-		oauth: {
-			client_id: client_id,//'你的 client ID',
-			client_secret: client_secret,//'你的 client secret',
-		},
-		})
-		gitment.render('gitment-container')
-	</script>
-<!-- UY END -->
-
-
 
 
             </main>
@@ -264,7 +192,7 @@
 
   <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
   <script>
-    let maxNum = Number.parseInt('10')
+    let maxNum = Number.parseInt('3')
     let iconText = '❤'
     let color = 'red'
     new Draw({maxNum, iconText, color})

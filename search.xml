@@ -1,53 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title>netty入门篇</title>
-      <link href="/2018/10/08/netty%E5%85%A5%E9%97%A8%E7%AF%87/"/>
-      <url>/2018/10/08/netty%E5%85%A5%E9%97%A8%E7%AF%87/</url>
-      
-        <content type="html"><![CDATA[<p>Netty是一个高性能、异步事件驱动的NIO框架，它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是<strong>异步非阻塞</strong>的，通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果。</p><h2 id="介绍几个概念"><a href="#介绍几个概念" class="headerlink" title="介绍几个概念"></a>介绍几个概念</h2><ul><li><p>BIO ：同步阻塞式IO，服务器端与客户端三次握手简历连接后一个链路建立一个线程进行面向流的通信。这曾是jdk1.4前的唯一选择。在任何一端出现网络性能问题时都影响另一端，无法满足高并发高性能的需求。</p></li><li><p>NIO ：同步非阻塞IO，以块的方式处理数据。采用多路复用Reactor模式。JDK1.4时引入。</p></li><li><p>AIO ：异步非阻塞IO，基于unix事件驱动，不需要多路复用器对注册通道进行轮询，采用Proactor设计模式。JDK1.7时引入。</p></li><li><p>同步和异步是针对应用程序和内核的交互而言的，同步指的是用户进程触发IO操作并等待或者轮询的去查看IO操作是否就绪，而异步是指用户进程触发IO操作以后便开始做自己的事情，而当IO操作已经完成的时候会得到IO完成的通知。</p></li><li><p>阻塞和非阻塞是针对于进程在访问数据的时候，根据IO操作的就绪状态来采取的不同方式，说白了是一种读取或者写入操作函数的实现方式，阻塞方式下读取或者写入函数将一直等待，而非阻塞方式下，读取或者写入函数会立即返回一个状态值。</p></li></ul><h2 id="高效性能"><a href="#高效性能" class="headerlink" title="高效性能"></a>高效性能</h2><ol><li><a href="http://ifeve.com/netty%E4%BA%8C-%E4%BB%8E%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8B-netty-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%EF%BC%9F/" target="_blank" rel="noopener">IO线程模型</a>，使用reactor模式，同步非阻塞。这决定了可以用最少的资源做更多的事。</li><li>内存零拷贝，使用直接缓存</li><li>内存池设计，申请的内存可以重用，主要指直接内存。内部实现是用一颗二叉查找树管理内存分配情况。</li><li>串形化处理socket读写，避免锁，即一个指定socket的消息是串形化处理的。这样性能比多个线程同时 处理一个socket对应消息要好，因为多线程处理会有锁。</li><li>提供对protobuf等高性能序列化协议支持</li></ol><p>更多可以参考<a href="https://blog.csdn.net/gaowenhui2008/article/details/55044704" target="_blank" rel="noopener">Java异步NIO框架Netty实现高性能高并发</a></p><h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><p><img src="/2018/10/08/netty入门篇/20161018150148_614.jpg" alt="netty"></p><h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><p> 鉴于比较简单，秉着不重复造轮子的心态，推荐一篇写的非常全面的blog：<a href="https://crossoverjie.top/2018/05/24/netty/Netty(1)TCP-Heartbeat/" target="_blank" rel="noopener">Netty(一) SpringBoot 整合长连接心跳机制</a></p><p> 主从多线程模型:<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 启动 Netty</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> InterruptedException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostConstruct</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"><span class="comment">//相当于 Reactor 模型中处理客户端连接的线程池</span></span><br><span class="line"><span class="keyword">private</span> EventLoopGroup boss = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line"><span class="comment">//work 自然就是处理事件的线程池了</span></span><br><span class="line"><span class="keyword">private</span> EventLoopGroup work = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">    <span class="comment">//启动NIO服务的辅助启动类</span></span><br><span class="line">    ServerBootstrap bootstrap = <span class="keyword">new</span> ServerBootstrap()</span><br><span class="line">            .group(boss, work)</span><br><span class="line">            .channel(NioServerSocketChannel.class)</span><br><span class="line">            .localAddress(<span class="keyword">new</span> InetSocketAddress(nettyPort))</span><br><span class="line">            <span class="comment">//保持长连接</span></span><br><span class="line">            .childOption(ChannelOption.SO_KEEPALIVE, <span class="keyword">true</span>)</span><br><span class="line">            .childHandler(<span class="keyword">new</span> HeartbeatInitializer());</span><br><span class="line"></span><br><span class="line">    ChannelFuture future = bootstrap.bind().sync();</span><br><span class="line">    <span class="keyword">if</span> (future.isSuccess()) &#123;</span><br><span class="line">        LOGGER.info(<span class="string">"启动 Netty 成功"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="Open-Source"><a href="#Open-Source" class="headerlink" title="Open Source"></a>Open Source</h2><p> 作为当前最流行的NIO框架，Netty在互联网领域、大数据分布式计算领域、游戏行业、通信行业等获得了广泛的应用，一些业界著名的开源组件也基于Netty的NIO框架构建。<br>    <a href="http://dubbo.apache.org/en-us/" target="_blank" rel="noopener">Dubbo</a>、<a href="https://www.elastic.co/cn/products/elasticsearch" target="_blank" rel="noopener">ElasticSearch</a>、<a href="http://rocketmq.apache.org/" target="_blank" rel="noopener">RocketMQ</a></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://blog.csdn.net/mween/article/details/77838781" target="_blank" rel="noopener">netty原理</a></li><li><a href="https://blog.csdn.net/zhaozhenzuo/article/details/72356056?utm_source=copy" target="_blank" rel="noopener">netty高性能原因，netty调优</a></li></ul>]]></content>
-      
-      
+<search>
+  <entry>
+    <title><![CDATA[netty入门篇]]></title>
+    <url>%2F2018%2F10%2F08%2Fnetty%E5%85%A5%E9%97%A8%E7%AF%87%2F</url>
+    <content type="text"><![CDATA[Netty是一个高性能、异步事件驱动的NIO框架，它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是异步非阻塞的，通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果。 介绍几个概念 BIO ：同步阻塞式IO，服务器端与客户端三次握手简历连接后一个链路建立一个线程进行面向流的通信。这曾是jdk1.4前的唯一选择。在任何一端出现网络性能问题时都影响另一端，无法满足高并发高性能的需求。 NIO ：同步非阻塞IO，以块的方式处理数据。采用多路复用Reactor模式。JDK1.4时引入。 AIO ：异步非阻塞IO，基于unix事件驱动，不需要多路复用器对注册通道进行轮询，采用Proactor设计模式。JDK1.7时引入。 同步和异步是针对应用程序和内核的交互而言的，同步指的是用户进程触发IO操作并等待或者轮询的去查看IO操作是否就绪，而异步是指用户进程触发IO操作以后便开始做自己的事情，而当IO操作已经完成的时候会得到IO完成的通知。 阻塞和非阻塞是针对于进程在访问数据的时候，根据IO操作的就绪状态来采取的不同方式，说白了是一种读取或者写入操作函数的实现方式，阻塞方式下读取或者写入函数将一直等待，而非阻塞方式下，读取或者写入函数会立即返回一个状态值。 高效性能 IO线程模型，使用reactor模式，同步非阻塞。这决定了可以用最少的资源做更多的事。 内存零拷贝，使用直接缓存 内存池设计，申请的内存可以重用，主要指直接内存。内部实现是用一颗二叉查找树管理内存分配情况。 串形化处理socket读写，避免锁，即一个指定socket的消息是串形化处理的。这样性能比多个线程同时 处理一个socket对应消息要好，因为多线程处理会有锁。 提供对protobuf等高性能序列化协议支持 更多可以参考Java异步NIO框架Netty实现高性能高并发 架构设计 快速上手 鉴于比较简单，秉着不重复造轮子的心态，推荐一篇写的非常全面的blog：Netty(一) SpringBoot 整合长连接心跳机制 主从多线程模型: 12345678910111213141516171819202122232425262728/** * 启动 Netty * * @return * @throws InterruptedException */@PostConstructpublic void start() throws InterruptedException &#123;//相当于 Reactor 模型中处理客户端连接的线程池private EventLoopGroup boss = new NioEventLoopGroup();//相当于 Reactor 模型中处理事件的线程池private EventLoopGroup work = new NioEventLoopGroup(); //启动NIO服务的辅助启动类 ServerBootstrap bootstrap = new ServerBootstrap() .group(boss, work) .channel(NioServerSocketChannel.class) .localAddress(new InetSocketAddress(nettyPort)) //保持长连接 .childOption(ChannelOption.SO_KEEPALIVE, true) .childHandler(new HeartbeatInitializer()); ChannelFuture future = bootstrap.bind().sync(); if (future.isSuccess()) &#123; LOGGER.info("启动 Netty 成功"); &#125;&#125; Open Source 作为当前最流行的NIO框架，Netty在互联网领域、大数据分布式计算领域、游戏行业、通信行业等获得了广泛的应用，一些业界著名的开源组件也基于Netty的NIO框架构建。 Dubbo、ElasticSearch、RocketMQ 参考 netty原理 netty高性能原因，netty调优]]></content>
       <categories>
-          
-          <category> netty </category>
-          
+        <category>netty</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> netty </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2018/09/28/hello-world/"/>
-      <url>/2018/09/28/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p><h3 id="Next-Theme"><a href="#Next-Theme" class="headerlink" title="Next Theme"></a>Next Theme</h3><p><a href="https://github.com/theme-next" target="_blank" rel="noopener">https://github.com/theme-next</a></p>]]></content>
-      
-      
+      <tags>
+        <tag>netty</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2018%2F09%2F28%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment Next Themehttps://github.com/theme-next]]></content>
       <categories>
-          
-          <category> Hexo教程 </category>
-          
+        <category>Hexo教程</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-  
-  
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
 </search>

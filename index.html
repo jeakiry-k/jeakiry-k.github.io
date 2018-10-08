@@ -335,7 +335,7 @@
                 
               
 
-              <time title="创建时间：2018-10-08 14:01:34 / 修改时间：15:30:12" itemprop="dateCreated datePublished" datetime="2018-10-08T14:01:34+08:00">2018-10-08</time>
+              <time title="创建时间：2018-10-08 14:01:34 / 修改时间：17:10:41" itemprop="dateCreated datePublished" datetime="2018-10-08T14:01:34+08:00">2018-10-08</time>
             
 
             
@@ -345,6 +345,24 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/netty/" itemprop="url" rel="index"><span itemprop="name">netty</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -389,12 +407,14 @@
 </li>
 </ul>
 <h2 id="高效性能"><a href="#高效性能" class="headerlink" title="高效性能"></a>高效性能</h2><ol>
-<li>io线程模型<br>使用reactor模式，同步非阻塞。这决定了可以用最少的资源做更多的事。</li>
-<li>内存零拷贝<br>使用直接缓存</li>
-<li>内存池设计<br>申请的内存可以重用，主要指直接内存。<br>内部实现是用一颗二叉查找树管理内存分配情况。</li>
+<li><a href="http://ifeve.com/netty%E4%BA%8C-%E4%BB%8E%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8B-netty-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%EF%BC%9F/" target="_blank" rel="noopener">IO线程模型</a>，使用reactor模式，同步非阻塞。这决定了可以用最少的资源做更多的事。</li>
+<li>内存零拷贝，使用直接缓存</li>
+<li>内存池设计，申请的内存可以重用，主要指直接内存。内部实现是用一颗二叉查找树管理内存分配情况。</li>
 <li>串形化处理socket读写，避免锁，即一个指定socket的消息是串形化处理的。这样性能比多个线程同时 处理一个socket对应消息要好，因为多线程处理会有锁。</li>
 <li>提供对protobuf等高性能序列化协议支持</li>
 </ol>
+<p>更多可以参考<a href="https://blog.csdn.net/gaowenhui2008/article/details/55044704" target="_blank" rel="noopener">Java异步NIO框架Netty实现高性能高并发</a></p>
+<h2 id="架构分析"><a href="#架构分析" class="headerlink" title="架构分析"></a>架构分析</h2><p><img src="/2018/10/08/netty入门篇/20161018150148_614.jpg" alt="netty"></p>
 <h2 id="Open-Source"><a href="#Open-Source" class="headerlink" title="Open Source"></a>Open Source</h2><p> 作为当前最流行的NIO框架，Netty在互联网领域、大数据分布式计算领域、游戏行业、通信行业等获得了广泛的应用，一些业界著名的开源组件也基于Netty的NIO框架构建。<br>    <a href="http://dubbo.apache.org/en-us/" target="_blank" rel="noopener">Dubbo</a>、<a href="https://www.elastic.co/cn/products/elasticsearch" target="_blank" rel="noopener">ElasticSearch</a>、<a href="http://rocketmq.apache.org/" target="_blank" rel="noopener">RocketMQ</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://blog.csdn.net/mween/article/details/77838781" target="_blank" rel="noopener">netty原理</a></li>
@@ -516,7 +536,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-09-29 18:02:28" itemprop="dateModified" datetime="2018-09-29T18:02:28+08:00">2018-09-29</time>
+                <time title="修改时间：2018-10-08 17:10:24" itemprop="dateModified" datetime="2018-10-08T17:10:24+08:00">2018-10-08</time>
               
             
           </span>
@@ -578,6 +598,7 @@
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h3 id="Next-Theme"><a href="#Next-Theme" class="headerlink" title="Next Theme"></a>Next Theme</h3><p><a href="https://github.com/theme-next" target="_blank" rel="noopener">https://github.com/theme-next</a></p>
 
           
         
@@ -674,7 +695,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>

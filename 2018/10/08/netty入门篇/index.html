@@ -116,10 +116,12 @@
 <meta property="og:site_name" content="Jeakiry&#39;s blog">
 <meta property="og:description" content="Netty是一个高性能、异步事件驱动的NIO框架，它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是异步非阻塞的，通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果。 介绍几个概念 BIO ：同步阻塞式IO，服务器端与客户端三次握手简历连接后一个链路建立一个线程进行面向流的通信。这曾是jdk1.4前的唯一选择。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-08T07:30:12.947Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/08/netty入门篇/20161018150148_614.jpg">
+<meta property="og:updated_time" content="2018-10-08T09:10:41.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="netty入门篇">
 <meta name="twitter:description" content="Netty是一个高性能、异步事件驱动的NIO框架，它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是异步非阻塞的，通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果。 介绍几个概念 BIO ：同步阻塞式IO，服务器端与客户端三次握手简历连接后一个链路建立一个线程进行面向流的通信。这曾是jdk1.4前的唯一选择。">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/08/netty入门篇/20161018150148_614.jpg">
 
 
 
@@ -331,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2018-10-08 14:01:34 / 修改时间：15:30:12" itemprop="dateCreated datePublished" datetime="2018-10-08T14:01:34+08:00">2018-10-08</time>
+              <time title="创建时间：2018-10-08 14:01:34 / 修改时间：17:10:41" itemprop="dateCreated datePublished" datetime="2018-10-08T14:01:34+08:00">2018-10-08</time>
             
 
             
@@ -341,6 +343,24 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/netty/" itemprop="url" rel="index"><span itemprop="name">netty</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -383,12 +403,14 @@
 </li>
 </ul>
 <h2 id="高效性能"><a href="#高效性能" class="headerlink" title="高效性能"></a>高效性能</h2><ol>
-<li>io线程模型<br>使用reactor模式，同步非阻塞。这决定了可以用最少的资源做更多的事。</li>
-<li>内存零拷贝<br>使用直接缓存</li>
-<li>内存池设计<br>申请的内存可以重用，主要指直接内存。<br>内部实现是用一颗二叉查找树管理内存分配情况。</li>
+<li><a href="http://ifeve.com/netty%E4%BA%8C-%E4%BB%8E%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8B-netty-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%EF%BC%9F/" target="_blank" rel="noopener">IO线程模型</a>，使用reactor模式，同步非阻塞。这决定了可以用最少的资源做更多的事。</li>
+<li>内存零拷贝，使用直接缓存</li>
+<li>内存池设计，申请的内存可以重用，主要指直接内存。内部实现是用一颗二叉查找树管理内存分配情况。</li>
 <li>串形化处理socket读写，避免锁，即一个指定socket的消息是串形化处理的。这样性能比多个线程同时 处理一个socket对应消息要好，因为多线程处理会有锁。</li>
 <li>提供对protobuf等高性能序列化协议支持</li>
 </ol>
+<p>更多可以参考<a href="https://blog.csdn.net/gaowenhui2008/article/details/55044704" target="_blank" rel="noopener">Java异步NIO框架Netty实现高性能高并发</a></p>
+<h2 id="架构分析"><a href="#架构分析" class="headerlink" title="架构分析"></a>架构分析</h2><p><img src="/2018/10/08/netty入门篇/20161018150148_614.jpg" alt="netty"></p>
 <h2 id="Open-Source"><a href="#Open-Source" class="headerlink" title="Open Source"></a>Open Source</h2><p> 作为当前最流行的NIO框架，Netty在互联网领域、大数据分布式计算领域、游戏行业、通信行业等获得了广泛的应用，一些业界著名的开源组件也基于Netty的NIO框架构建。<br>    <a href="http://dubbo.apache.org/en-us/" target="_blank" rel="noopener">Dubbo</a>、<a href="https://www.elastic.co/cn/products/elasticsearch" target="_blank" rel="noopener">ElasticSearch</a>、<a href="http://rocketmq.apache.org/" target="_blank" rel="noopener">RocketMQ</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://blog.csdn.net/mween/article/details/77838781" target="_blank" rel="noopener">netty原理</a></li>
@@ -520,7 +542,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -573,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍几个概念"><span class="nav-number">1.</span> <span class="nav-text">介绍几个概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高效性能"><span class="nav-number">2.</span> <span class="nav-text">高效性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Open-Source"><span class="nav-number">3.</span> <span class="nav-text">Open Source</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍几个概念"><span class="nav-number">1.</span> <span class="nav-text">介绍几个概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高效性能"><span class="nav-number">2.</span> <span class="nav-text">高效性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构分析"><span class="nav-number">3.</span> <span class="nav-text">架构分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Open-Source"><span class="nav-number">4.</span> <span class="nav-text">Open Source</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

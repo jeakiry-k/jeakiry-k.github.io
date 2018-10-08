@@ -3,7 +3,7 @@
 <head >
   <meta charset="utf-8">
   
-  <title>learnEdge | 学无涯</title>
+  <title>netty入门篇 | learnEdge | 学无涯</title>
 
   
   <meta name="author" content="Jeakiry">
@@ -21,7 +21,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
+  <meta property="og:title" content="netty入门篇"/>
 
   <meta property="og:site_name" content="learnEdge"/>
 
@@ -86,18 +86,16 @@
 </header>
 
         
-        <div class="container ">
+          <div class="container ">
           <div class="row">
-            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
-                    col-md-8 col-md-offset-1
-                    col-sm-12
-                    col-xs-12">
-            
-  <article class="article-container ">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
 
   
     
-    <h3 class="article-title"><a href="/2018/10/08/netty入门篇/"><span>netty入门篇</span></a></h3>
+    <h3 class="article-title"><span>netty入门篇</span></h3>
     
   
 
@@ -110,6 +108,10 @@
       </a>
     </span>
     <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
     
   </div>
 
@@ -170,140 +172,22 @@
   </div>
   
     
-    <h3 class="article-read"><a href="/2018/10/08/netty入门篇/"><span>more</span></a></h3>
     
   
 </article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍几个概念"><span class="toc-number">1.</span> <span class="toc-text">介绍几个概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高效性能"><span class="toc-number">2.</span> <span class="toc-text">高效性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Open-Source"><span class="toc-number">3.</span> <span class="toc-text">Open Source</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+</div>
 
 
 
 
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2018/09/28/hello-world/"><span>Hello World</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/09/28/hello-world/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-09-28T09:38:01.161Z">
-          2018-09-28
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/Hexo教程/">Hexo教程</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/hexo/">hexo</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2018/09/28/hello-world/"><span>more</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-
-<nav class="pagination">
-  
-  
-</nav>
             </main>
-            <div class="sidebar
-                    col-lg-3 col-lg-offset-0
-                    col-md-3 col-md-offset-0
-                    col-sm-12
-                    col-xs-12
-                    sidebar-container
-                ">
-
-                <div class="sidebar-container">
-
-
-
-<div class="search-container">
-<form class="site-search-form">
-    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
-</form>
-<div id="local-search-result" class="local-search-result-cls"></div>
-</div>
-<script type="text/javascript" id="local.search.active">
-var inputArea       = document.querySelector("#local-search-input");
-inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
-inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
-</script>
-
-
-
-
-    <div class="categories-container" style="margin-top:40px;">
-        <p>归档:</p>
-            
-                <a href="/categories/Hexo教程/" title="Hexo教程" rel="1">Hexo教程</a>
-            
-    </div>
-
-
-
-
-</div>
-            </div>
           </div>
         </div>
-        
+       
     <footer class="site-footer">
   <p class="site-info">
     Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
@@ -332,5 +216,5 @@ inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
 <script src="/js/index.js"></script>
 <script src="/js/search.js"></script>
 
-<script>'use strict';'serviceWorker'in navigator&&navigator.serviceWorker.register('service-worker.js').then(function(a){a.onupdatefound=function(){var b=a.installing;b.onstatechange=function(){switch(b.state){case'installed':navigator.serviceWorker.controller?console.log('New or updated content is available.'):console.log('Content is now available offline!');break;case'redundant':console.error('The installing service worker became redundant.');}}}}).catch(function(a){console.error('Error during service worker registration:',a)});
-</script></body></html>
+</body>
+</html>

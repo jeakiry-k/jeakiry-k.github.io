@@ -117,7 +117,7 @@
 <meta property="og:description" content="netty介绍 Netty是一个高性能、异步事件驱动的NIO框架，它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是异步非阻塞的，通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果。 作为当前最流行的NIO框架，Netty在互联网领域、大数据分布式计算领域、游戏行业、通信行业等获得了广泛的应用，一些业界著名的开">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2018/10/08/netty入门篇/20161018150148_614.jpg">
-<meta property="og:updated_time" content="2018-10-24T08:37:23.347Z">
+<meta property="og:updated_time" content="2018-11-21T11:46:02.485Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="netty入门篇">
 <meta name="twitter:description" content="netty介绍 Netty是一个高性能、异步事件驱动的NIO框架，它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是异步非阻塞的，通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果。 作为当前最流行的NIO框架，Netty在互联网领域、大数据分布式计算领域、游戏行业、通信行业等获得了广泛的应用，一些业界著名的开">
@@ -358,7 +358,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-24 16:37:23" itemprop="dateModified" datetime="2018-10-24T16:37:23+08:00">2018-10-24</time>
+                <time title="修改时间：2018-11-21 19:46:02" itemprop="dateModified" datetime="2018-11-21T19:46:02+08:00">2018-11-21</time>
               
             
           </span>
@@ -443,7 +443,7 @@
 </ol>
 </li>
 </ul>
-<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><p> 鉴于比较简单，秉着不重复造轮子和广泛学习的心态，推荐一篇很赞的文章：<a href="https://crossoverjie.top/2018/05/24/netty/Netty(1)TCP-Heartbeat/" target="_blank" rel="noopener">Netty(一) SpringBoot 整合长连接心跳机制</a></p>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><p> 鉴于比较简单，这里荐一篇很不错的文章：<a href="https://crossoverjie.top/2018/05/24/netty/Netty(1)TCP-Heartbeat/" target="_blank" rel="noopener">Netty(一) SpringBoot 整合长连接心跳机制</a></p>
 <p> 主从多线程模型启动类:<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 启动 Netty</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> InterruptedException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostConstruct</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"><span class="comment">//相当于 Reactor 模型中处理客户端连接的线程池</span></span><br><span class="line"><span class="keyword">private</span> EventLoopGroup boss = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line"><span class="comment">//相当于 Reactor 模型中处理事件的线程池</span></span><br><span class="line"><span class="keyword">private</span> EventLoopGroup work = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//启动NIO服务的辅助启动类</span></span><br><span class="line">    ServerBootstrap bootstrap = <span class="keyword">new</span> ServerBootstrap()</span><br><span class="line">            .group(boss, work)</span><br><span class="line">            .channel(NioServerSocketChannel.class)</span><br><span class="line">            .localAddress(<span class="keyword">new</span> InetSocketAddress(nettyPort))</span><br><span class="line">            <span class="comment">//保持长连接</span></span><br><span class="line">            .childOption(ChannelOption.SO_KEEPALIVE, <span class="keyword">true</span>)</span><br><span class="line">            .childHandler(<span class="keyword">new</span> HeartbeatInitializer());</span><br><span class="line"></span><br><span class="line">    ChannelFuture future = bootstrap.bind().sync();</span><br><span class="line">    <span class="keyword">if</span> (future.isSuccess()) &#123;</span><br><span class="line">        LOGGER.info(<span class="string">"启动 Netty 成功"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://www.cnblogs.com/zedosu/p/6666984.html" target="_blank" rel="noopener">关于BIO和NIO的理解</a></li>
@@ -452,6 +452,7 @@
 <li><a href="https://www.cnblogs.com/DaTouDaddy/p/6801906.html" target="_blank" rel="noopener">Netty4详解三：Netty架构设计</a></li>
 <li><a href="http://www.uml.org.cn/zjjs/2016101805.asp" target="_blank" rel="noopener">一篇文章，读懂Netty的高性能架构之道</a></li>
 <li><a href="https://blog.csdn.net/javadhh/article/details/66477423" target="_blank" rel="noopener">Netty</a></li>
+<li><a href="https://www.jianshu.com/p/03bb8a945b37" target="_blank" rel="noopener">Netty工作原理架构图</a></li>
 </ul>
 
       
